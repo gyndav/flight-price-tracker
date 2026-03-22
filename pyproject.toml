@@ -1,0 +1,15 @@
+[project]
+name = "flight-price-tracker"
+version = "0.1.0"
+description = "Agentic flight price monitor — Kiwi.com + GitHub Actions + Claude API"
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.25.0",
+    "requests>=2.31.0",
+    "pyyaml>=6.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.0",
+]

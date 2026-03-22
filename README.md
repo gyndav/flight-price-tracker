@@ -65,10 +65,11 @@ Only top-tier carriers are included. Budget airlines are filtered out.
 
 ## Stack
 
-- **Python 3.13** — fetch, persist, analyze
+- **Python 3.13** + **uv** — fetch, persist, analyze
 - **Kiwi.com Tequila API** — flight search and pricing
 - **Claude API** (`claude-sonnet`) — trend reasoning and buy recommendation
 - **GitHub Actions** — scheduler, runner, no infrastructure needed
+- **Ruff** — linting, enforced on PRs
 - **prices.json** — lightweight persistent store, version-controlled history
 
 ---
@@ -85,7 +86,7 @@ cd flight-price-tracker
 ### 2. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 ### 3. Configure secrets
@@ -120,8 +121,8 @@ analysis:
 ### 5. Run locally
 
 ```bash
-python fetch_prices.py    # fetch and append to prices.json
-python analyze.py         # send to Claude, print recommendation
+uv run python fetch_prices.py    # fetch and append to prices.json
+uv run python analyze.py         # send to Claude, print recommendation
 ```
 
 ### 6. Schedule via GitHub Actions
@@ -182,7 +183,7 @@ flight-price-tracker/
 ├── analyze.py                  # Claude API analysis + recommendation
 ├── config.yaml                 # routes, passengers, model config
 ├── prices.json                 # persisted price history (auto-updated)
-├── requirements.txt
+├── pyproject.toml              # dependencies + ruff config (managed by uv)
 └── README.md
 ```
 

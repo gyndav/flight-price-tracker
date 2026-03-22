@@ -100,17 +100,17 @@ def format_summary(route_key: str, entries: list, analysis: str) -> str:
 
     lines = [
         f"## ✈️ {route_key}",
-        f"",
+        "",
         f"**Latest price:** {latest['price']} {latest['currency']} "
         f"({latest['airline']}, {latest['duration_hours']}h) — "
         f"as of {datetime.fromisoformat(latest['fetched_at']).strftime('%Y-%m-%d %H:%M UTC')}",
         f"**Data points:** {data_points}",
-        f"",
+        "",
         "**Analysis:**",
-        f"```",
+        "```",
         analysis,
-        f"```",
-        f"",
+        "```",
+        "",
         f"[🔗 Book now]({latest['deep_link']})" if latest.get("deep_link") else "",
         "",
         "---",
@@ -154,7 +154,7 @@ def main():
         analysis = analyze_route(client, route_key, entries, config)
         summary = format_summary(route_key, entries, analysis)
         write_github_summary(summary)
-        print(f"    ✓ Done")
+        print("    ✓ Done")
 
     print("\nAnalysis complete. Check the GitHub Actions job summary for results.")
 
