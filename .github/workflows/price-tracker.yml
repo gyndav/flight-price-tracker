@@ -1,0 +1,45 @@
+name: Flight Price Tracker
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # Every day at 07:00 UTC
+  workflow_dispatch:        # Manual trigger from GitHub UI or CLI
+
+permissions:
+  contents: write           # Required to commit updated prices.json
+
+jobs:
+  track:
+    name: Fetch & Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch prices
+        env:
+          KIWI_API_KEY: ${{ secrets.KIWI_API_KEY }}
+        run: python fetch_prices.py
+
+      - name: Commit updated prices.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add prices.json
+          git diff --cached --quiet || git commit -m "chore: update prices $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
+
+      - name: Analyze trends
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python analyze.py

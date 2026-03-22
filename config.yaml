@@ -1,0 +1,34 @@
+routes:
+  - origin: MPL
+    destination: DXB
+    date_from: "2026-05-01"
+    date_to: "2026-05-31"
+    adults: 2
+    children: 1
+    max_stopovers: 1
+    currency: EUR
+    carriers_exclude: []  # Add IATA codes to filter out carriers, e.g. ["FR", "U2", "VY"]
+
+  - origin: LYS
+    destination: DXB
+    date_from: "2026-05-01"
+    date_to: "2026-05-31"
+    adults: 2
+    children: 1
+    max_stopovers: 1
+    currency: EUR
+    carriers_exclude: []
+
+  - origin: MRS
+    destination: DXB
+    date_from: "2026-05-01"
+    date_to: "2026-05-31"
+    adults: 2
+    children: 1
+    max_stopovers: 1
+    currency: EUR
+    carriers_exclude: []
+
+analysis:
+  model: claude-sonnet-4-6
+  prompt_style: concise  # concise | detailed
