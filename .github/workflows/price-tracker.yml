@@ -1,8 +1,8 @@
 name: Flight Price Tracker
 
 on:
-  schedule:
-    - cron: "0 7 * * *"   # Every day at 07:00 UTC
+  # schedule:
+  #   - cron: "0 7 * * *"   # Every day at 07:00 UTC
   workflow_dispatch:        # Manual trigger from GitHub UI or CLI
 
 permissions:
